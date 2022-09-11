@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "j1SEe0/xDBvvAdIbuIXsBA3EpVsWT5yEmMiYqjkDL+/2Y5mtQRkLM6Qgl+fDHfePreP9k0yiYQ6wJ58Sgmz6uA==",
+  "dgSpecHash": "uGqXh8JkdWbIC+c9AJQe0YghqCu118JHgRuF4l1DYnA7oAuJTupd2WbQuEvvjOf9apNYKdZ/TwsPhylWtVdJhA==",
   "success": true,
-  "projectFilePath": "c:\\Users\\Bengt\\Desktop\\Learnify\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\Bengt\\Desktop\\Learnify\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Bengt\\.nuget\\packages\\microsoft.data.sqlite.core\\5.0.6\\microsoft.data.sqlite.core.5.0.6.nupkg.sha512",
     "C:\\Users\\Bengt\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\3.1.6\\microsoft.dotnet.platformabstractions.3.1.6.nupkg.sha512",
