@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GLGQLRO/+xdaj1oxdr/rueEh563Cg8GvWlWVU5B0JCqFbo6rMXSW20SwukSH+3XyNmN0uLuCnubsmPXZMbxfMw==",
+  "dgSpecHash": "EUAtGvwjQTK591ta/KRk4jiMXvR22Em258vmSCIskd/FgjtcKHx1sbjfGV+uFZLwl35aRgBj1au4X+LhIsDwsA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Bengt\\Desktop\\Learnify\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\Bengt\\Desktop\\Learnify\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Bengt\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Bengt\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
