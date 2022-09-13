@@ -1,4 +1,6 @@
 # Ignore any files in /bin and /obj Folders
-**/bin/*
-**/obj/*
-**/node_modules/*
+bin/
+obj/
+node_modules/
+.vscode/
+.vs/
