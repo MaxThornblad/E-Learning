@@ -17,5 +17,7 @@ namespace Entity
 
         public decimal Rating { get; set; }
 
+        public string Image {get; set;}
+
     }
 }
