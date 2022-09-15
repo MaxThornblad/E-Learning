@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20220915104942_CourseConfiguration")]
-    partial class CourseConfiguration
+    [Migration("20220915124419_CourseConfigurationHotfix")]
+    partial class CourseConfigurationHotfix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Entity.Course", b =>
@@ -41,8 +41,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Description")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -60,6 +61,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Level")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<float>("Price")

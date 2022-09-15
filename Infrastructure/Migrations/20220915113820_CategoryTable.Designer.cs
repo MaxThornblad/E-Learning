@@ -3,14 +3,16 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20220915113820_CategoryTable")]
+    partial class CategoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,9 +41,8 @@ namespace Infrastructure.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Description")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -59,7 +60,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Level")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<float>("Price")

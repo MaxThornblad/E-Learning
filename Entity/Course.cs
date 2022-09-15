@@ -20,7 +20,7 @@ namespace Entity
 
         public string SubTitle {get; set;}
 
-        public int Description { get; set; }
+        public string Description { get; set; }
 
         public int Students { get; set; }
 
