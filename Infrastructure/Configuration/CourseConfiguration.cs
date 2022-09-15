@@ -21,6 +21,8 @@ namespace Infrastructure.Configuration
             builder.Property(p => p.Description).IsRequired();
             builder.Property(p => p.Instructor).IsRequired();
             builder.Property(p => p.Image).IsRequired();
+            builder.Property(p => p.Level).IsRequired();
+
             //builder.Property(p => p.Id).IsRequired();
 
             builder.Property(p => p.Rating).HasColumnType("decimal(18,1)");
