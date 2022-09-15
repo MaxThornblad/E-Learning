@@ -29,7 +29,6 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ICourseRepository, CourseRepository>();
-
             services.AddControllers();
             services.AddDbContext<StoreContext>(x => {
                 x.UseSqlite(_config.GetConnectionString("DefaultConnection"));
