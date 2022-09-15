@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entity;
+using Entity.Interfaces;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,24 +12,25 @@ namespace API.Controllers
 {
     public class CoursesController : BaseController
     {
-        private readonly StoreContext _context;
-        public CoursesController(StoreContext context)
+        private readonly ICourseRepository _repository;
+        public CoursesController(ICourseRepository repository)
         {
-            this._context = context;
+            this._repository = repository;
         }
 
         [HttpGet]
 
         public async Task<ActionResult<List<Course>>> GetCourses()
         {
-            return await _context.Courses.ToListAsync();
+            var courses = await _repository.GetCoursesAsync();
+            return Ok();
         }
 
         [HttpGet("{id}")]
 
         public async Task<ActionResult<Course>> GetCourse(Guid id)
         {
-            return await _context.Courses.FindAsync(id);
+            return await _repository.GetCourseByIdAsync(id);
         }
         
     }
