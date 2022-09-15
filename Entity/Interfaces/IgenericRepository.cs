@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Interfaces
 {
-    public interface IgenericRepository<T>
+    public interface IGenericRepository<T>
     {
         Task<IReadOnlyList<T>> ListAllAsync();
 
