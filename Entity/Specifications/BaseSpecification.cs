@@ -12,7 +12,6 @@ namespace Entity.Specifications
         {
             
         }
-
         public BaseSpecification(Expression<Func<T, bool>> criteria)
         {
             Criteria = criteria;
