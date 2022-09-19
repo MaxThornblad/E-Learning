@@ -12,9 +12,16 @@ namespace Entity.Specifications
         public int PageIndex { get; set; } = 1;
         private const int MaxPageSize = 20;
         private int _pageSize = 3;
-        public int PageSize { 
+        public int PageSize 
+        { 
             get => _pageSize; 
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value; 
-            }
+        }
+
+        private string _search;
+
+        public string Search { 
+            get => _search; 
+            set => _search = value.ToLower(); }
     }
 }
