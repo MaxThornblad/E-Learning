@@ -15,6 +15,8 @@ namespace Infrastructure
         public DbSet<Category> Categories {get; set;}
         public DbSet<Requirement> Requirements {get; set;}
         public DbSet<Learning> Learnings {get; set;}
+        public DbSet<Basket> Baskets {get; set;}
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
