@@ -10,6 +10,8 @@ import CategoryPage from './pages/CategoryPage';
 import DescriptionPage from './pages/DescriptionPage';
 import BasketPage from './pages/BasketPage';
 import { useStoreContext } from './context/StoreContext';
+import { useEffect } from 'react';
+import agent from './actions/agent';
 
 function App() {
 
