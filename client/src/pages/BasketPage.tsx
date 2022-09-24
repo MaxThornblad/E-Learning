@@ -1,38 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Table } from 'antd'
 import agent from '../actions/agent'
 import * as FaIcons from 'react-icons/fa'
-import { Basket, CourseItem } from '../models/basket'
-import { useStoreContext } from '../context/StoreContext'
 import { Link } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../redux/store/configureStore'
+import { removeItem } from '../redux/slice/basketSlice'
+import { CourseItem } from '../models/basket'
 
 const BasketPage = () => {
-  const [items, setItems] = useState<Basket | null>()
-
-  const {basket, removeItem} = useStoreContext();
-  const basketCount = basket?.items.length || 0;
-  const total = basket?.items.reduce((sum, item) => sum + item.price, 0);
+  const { basket } = useAppSelector((state) => state.basket)
+  const dispatch = useAppDispatch()
+  const basketCount = basket?.items.length || 0
+  const total = basket?.items.reduce((sum, item) => sum + item.price, 0)
 
   const removeBasketItem = (courseId: string) => {
     agent.Baskets.removeItem(courseId)
-    .then(() => removeItem(courseId))
-    .catch((error) => {
-      console.log(error)
-    })
+      .then(() => dispatch(removeItem({ courseId })))
+      .catch((error) => {
+        console.log(error)
+      })
   }
-
-  useEffect(() => {
-    newData(basket);
-  }, [basket])
-
-  const newData = (items: Basket | null) => {
-    items?.items.map((item: CourseItem, index: number) =>
-      Object.assign(item, { key: index }),
-    )
-    setItems(items)
-  }
-
-
 
   const columns = [
     {
@@ -52,7 +39,7 @@ const BasketPage = () => {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
-      render: (price: number) => <div>$ {price}</div>
+      render: (price: number) => <div>$ {price} </div>,
     },
     {
       title: 'Instructor',
@@ -71,26 +58,40 @@ const BasketPage = () => {
   ]
 
   return (
+    <>
       <div className="basket-page">
         <h1 className="basket-page__header">Shopping Cart</h1>
-        <h2 className="basket-page__sub-header">{`${basketCount} ${basketCount! > 1 ? "courses" : "course"} in the Cart`}</h2>
+        <h2 className="basket-page__sub-header">
+          {`${basketCount} ${
+            basketCount! > 1 ? 'courses' : 'course'
+          } in the Cart`}
+        </h2>
         <div className="basket-page__body">
           <div className="basket-page__body__table">
-            <Table columns={columns} dataSource={items?.items} />
+            <Table
+              columns={columns}
+              dataSource={basket?.items}
+              rowKey="courseId"
+            />
           </div>
           {total! > 0 && (
             <div className="basket-page__body__summary">
               <h2>Total:</h2>
               <div className="basket-page__body__summary__total">
-                ${total ? total : 0}
+                {' '}
+                $ {total ? total : 0}{' '}
               </div>
-                <Link to="/basket">
-                  <div className="basket-page__body__summary__checkout">Checkout</div>
-                </Link>
+              <Link to="/checkout">
+                <div className="basket-page__body__summary__checkout">
+                  {' '}
+                  Checkout{' '}
+                </div>
+              </Link>
             </div>
           )}
         </div>
       </div>
+    </>
   )
 }
 
