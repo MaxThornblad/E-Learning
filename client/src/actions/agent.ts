@@ -33,7 +33,8 @@ const requests = {
 
 const Users = {
   login: (values: Login) => requests.post<User>("users/login", values),
-  register: (values: Register) => requests.post<User>("users/register", values)
+  register: (values: Register) => requests.post<User>("users/register", values),
+  addCourse: () => requests.post("users/purchaseCourses", {}),
 }
 
 const Courses = {
@@ -53,6 +54,7 @@ const Baskets = {
   addItem: (courseId: string) =>
     requests.post<Basket>(`basket?courseId=${courseId}`, {}),
   removeItem: (courseId: string) => requests.del(`basket?courseId=${courseId}`),
+  clear: () => requests.del("basket/clear"),
 };
 
 const Payments = {
