@@ -1,20 +1,23 @@
-import { Button, Card, Form, Input, Typography } from "antd";
-import { Content } from "antd/lib/layout/layout";
-import { ChangeEvent, SyntheticEvent, useState } from "react";
-import agent from "../actions/agent";
-import { Register } from "../models/user";
+import { Button, Card, Form, Input, Typography } from 'antd';
+import { Content } from 'antd/lib/layout/layout';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import agent from '../actions/agent';
+import { Register } from '../models/user';
 
 const { Text, Title } = Typography;
 
-const RegisterComponent = () => {
-  const [values, setValues] = useState <Register>(
-    {
-      email: "",
-      password: "",
-      username: ""
+interface Props {
+  toggleRegister: () => void;
+}
+
+const RegisterComponent = ({ toggleRegister }: Props) => {
+  const [values, setValues] = useState <Register>( {
+      email: '',
+      password: '',
+      username: '',
     });
 
-  const { email, password, username} = values;
+  const { email, password, username } = values;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,12 +26,13 @@ const RegisterComponent = () => {
 
   const submitUser = async (e: SyntheticEvent) => {
     e.preventDefault();
-    if (email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) &&
-        password.length >= 6 &&
-        username.length >= 5
+    if (
+      email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) &&
+      password.length >= 6 &&
+      username.length >= 5
     ) {
       const response = await agent.Users.register(values);
-      setValues({ ...values, email: "", password: "", username: "" });
+      setValues({ ...values, email: '', password: '', username: '' });
       console.log(response);
     }
   };
@@ -46,9 +50,10 @@ const RegisterComponent = () => {
         </div>
         <Content className="log-in__form">
           <Form
-            name="login"
+            name="register"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
+            initialValues={{ remember: true }}
             autoComplete="off"
             onSubmitCapture={submitUser}
           >
@@ -58,7 +63,7 @@ const RegisterComponent = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please enter a valid username!",
+                  message: 'Please input your username!',
                   min: 5,
                 },
               ]}
@@ -71,7 +76,7 @@ const RegisterComponent = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please enter a valid email!",
+                  message: 'Please input your email!',
                   pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 },
               ]}
@@ -85,7 +90,7 @@ const RegisterComponent = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please enter a valid password!",
+                  message: 'Please input your password!',
                   min: 6,
                 },
               ]}
@@ -97,13 +102,15 @@ const RegisterComponent = () => {
               />
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-              <Button onClick={submitUser} type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit">
                 Submit
               </Button>
             </Form.Item>
           </Form>
         </Content>
-        <div className="log-in-card__toggle">Already a user? Sign in</div>
+        <div onClick={toggleRegister} className="log-in-card__toggle">
+          Already a User? Sign in
+        </div>
       </Card>
     </>
   );
