@@ -35,7 +35,7 @@ const Signin = ({ toggleRegister }: Props) => {
     setValues({ ...values, [name]: value });
   };
 
-  const history = useHistory()
+  const history = useHistory();
 
   const submitUser = async (e: SyntheticEvent) => {
     e.preventDefault();
