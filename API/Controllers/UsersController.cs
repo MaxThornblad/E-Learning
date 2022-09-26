@@ -1,13 +1,14 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Dto;
-using API.ErrorResponse;
 using Entity;
+using API.ErrorResponse;
+using AutoMapper;
+using Infrastructure;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -15,13 +16,15 @@ namespace API.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly TokenService _tokenService;
-
-        public UsersController(UserManager<User> userManager, TokenService tokenService)
+        private readonly StoreContext _context;
+        private readonly IMapper _mapper;
+        public UsersController(UserManager<User> userManager, TokenService tokenService, StoreContext context, IMapper mapper)
         {
+            _mapper = mapper;
+            _context = context;
             _tokenService = tokenService;
             _userManager = userManager;
         }
-
 
         [HttpPost("login")]
 
@@ -29,35 +32,70 @@ namespace API.Controllers
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
 
-            if(user == null || !await _userManager.CheckPasswordAsync(user, loginDto.Password)){
+            if (user == null || !await _userManager.CheckPasswordAsync(user, loginDto.Password))
+            {
                 return Unauthorized(new ApiResponse(401));
             }
+
+            var userBasket = await ExtractBasket(user.UserName);
+            var basket = await ExtractBasket(Request.Cookies["clientId"]);
+
+            if (basket != null)
+            {
+                if (userBasket != null) _context.Baskets.Remove(userBasket);
+                basket.ClientId = user.UserName;
+                Response.Cookies.Delete("clientId");
+                await _context.SaveChangesAsync();
+            }
+
             return new UserDto
             {
                 Email = user.Email,
-                Token = await _tokenService.GenerateToken(user)
+                Token = await _tokenService.GenerateToken(user),
+                Basket = basket != null ? _mapper.Map<Basket, BasketDto>(basket) : _mapper.Map<Basket, BasketDto>(userBasket)
             };
         }
 
         [HttpPost("register")]
+
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            var user = new User {UserName = registerDto.Username, Email = registerDto.Email};
+            var user = new User { UserName = registerDto.Username, Email = registerDto.Email };
+
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
-                foreach(var error in result.Errors){
+                foreach (var error in result.Errors)
+                {
                     ModelState.AddModelError(error.Code, error.Description);
                 }
                 return ValidationProblem();
             }
+
             await _userManager.AddToRoleAsync(user, "Student");
+
             return new UserDto
             {
                 Email = user.Email,
                 Token = await _tokenService.GenerateToken(user)
             };
         }
+
+        private async Task<Basket> ExtractBasket(string clientId)
+        {
+            if (string.IsNullOrEmpty(clientId))
+            {
+                Response.Cookies.Delete("clientId");
+                return null;
+            }
+            return await _context.Baskets
+                        .Include(b => b.Items)
+                        .ThenInclude(i => i.Course)
+                        .OrderBy(i => i.Id)
+                        .FirstOrDefaultAsync(x => x.ClientId == clientId);
+
+        }
+
     }
 }
