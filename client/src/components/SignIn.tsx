@@ -1,8 +1,10 @@
-import { Button, Card, Form, Input, Typography } from 'antd';
-import { Content } from 'antd/lib/layout/layout';
-import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import agent from '../actions/agent';
-import { Login } from '../models/user';
+import { Button, Card, Form, Input, notification, Typography } from "antd";
+import { Content } from "antd/lib/layout/layout";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Login } from "../models/user";
+import { signInUser } from "../redux/slice/userSlice";
+import { useAppDispatch } from "../redux/store/configureStore";
 
 const { Text, Title } = Typography;
 
@@ -11,15 +13,21 @@ interface Props {
 }
 
 const Signin = ({ toggleRegister }: Props) => {
-  const [values, setValues] =
-    useState <
-    Login >(
-    {
-      email: '',
-      password: '',
-      });
+  const [values, setValues] = useState<Login>({
+    email: "",
+    password: "",
+  });
+
+  const dispatch = useAppDispatch();
 
   const { email, password } = values;
+
+  const [form] = Form.useForm();
+
+  const resetForm = () => {
+    setValues({ ...values, email: "", password: "" });
+    form.resetFields();
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,10 +36,16 @@ const Signin = ({ toggleRegister }: Props) => {
 
   const submitUser = async (e: SyntheticEvent) => {
     e.preventDefault();
-    if (email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) && password.length >= 6) {
-      const response = await agent.Users.login(values);
-      setValues({ ...values, email: '', password: '' });
-      console.log(response);
+    try {
+      if (email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) && password.length >= 6) {
+        await dispatch(signInUser(values));
+      }
+      resetForm();
+    } catch (err: any) {
+      notification.error({
+        message: "Please check your email or password",
+      });
+      resetForm();
     }
   };
 
@@ -52,7 +66,10 @@ const Signin = ({ toggleRegister }: Props) => {
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             autoComplete="off"
-            onSubmitCapture={submitUser}
+            // onSubmitCapture={submitUser}
+            initialValues={values}
+            onFinish={submitUser}
+            form={form}
           >
             <Form.Item
               label="Email"
@@ -60,7 +77,7 @@ const Signin = ({ toggleRegister }: Props) => {
               rules={[
                 {
                   required: true,
-                  message: 'Please enter a valid email!',
+                  message: "Please enter a valid email!",
                   pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 },
               ]}
@@ -74,7 +91,7 @@ const Signin = ({ toggleRegister }: Props) => {
               rules={[
                 {
                   required: true,
-                  message: 'Please enter a valid password!',
+                  message: "Please enter a valid password!",
                   min: 6,
                 },
               ]}
