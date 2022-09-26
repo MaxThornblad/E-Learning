@@ -8,6 +8,7 @@ using API.Middleware;
 using Entity;
 using Entity.Interfaces;
 using Infrastructure;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,6 +43,7 @@ namespace API
             .AddEntityFrameworkStores<StoreContext>();
             services.AddAuthentication();
             services.AddAuthorization();
+            services.AddScoped<TokenService>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             services.AddAutoMapper(typeof(MappingProfiles));
