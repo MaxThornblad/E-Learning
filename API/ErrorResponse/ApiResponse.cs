@@ -21,7 +21,7 @@ namespace API.ErrorResponse
             {
                 400 => "You have made a bad request",
                 401 => "You are not authorized",
-                404 => "Resourse not found",
+                404 => "Resource not found",
                 500 => "Internal server error",
                 _ => "An error has occured"
             };
