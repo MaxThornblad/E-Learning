@@ -1,8 +1,10 @@
-import { Button, Card, Form, Input, Typography } from 'antd';
-import { Content } from 'antd/lib/layout/layout';
-import { ChangeEvent, SyntheticEvent, useState } from 'react';
-import agent from '../actions/agent';
-import { Register } from '../models/user';
+import { Button, Card, Form, Input, notification, Typography } from "antd";
+import { Content } from "antd/lib/layout/layout";
+import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Register } from "../models/user";
+import { registerUser } from "../redux/slice/userSlice";
+import { useAppDispatch } from "../redux/store/configureStore";
 
 const { Text, Title } = Typography;
 
@@ -11,11 +13,13 @@ interface Props {
 }
 
 const RegisterComponent = ({ toggleRegister }: Props) => {
-  const [values, setValues] = useState <Register>( {
-      email: '',
-      password: '',
-      username: '',
-    });
+  const dispatch = useAppDispatch();
+
+  const [values, setValues] = useState<Register>({
+    email: "",
+    password: "",
+    username: "",
+  });
 
   const { email, password, username } = values;
 
@@ -23,17 +27,30 @@ const RegisterComponent = ({ toggleRegister }: Props) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+  const [form] = Form.useForm();
+
+  const resetForm = () => {
+    setValues({ ...values, email: "", password: "" });
+    form.resetFields();
+  };
 
   const submitUser = async (e: SyntheticEvent) => {
     e.preventDefault();
-    if (
-      email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) &&
-      password.length >= 6 &&
-      username.length >= 5
-    ) {
-      const response = await agent.Users.register(values);
-      setValues({ ...values, email: '', password: '', username: '' });
-      console.log(response);
+    try {
+      if (
+        email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/) &&
+        password.length >= 6 &&
+        username.length >= 5
+      ) {
+        await dispatch(registerUser(values));
+      }
+      resetForm();
+    } catch (err: any) {
+      console.log(err);
+      notification.error({
+        message: "Please check your credentials",
+      });
+      resetForm();
     }
   };
 
@@ -56,6 +73,7 @@ const RegisterComponent = ({ toggleRegister }: Props) => {
             initialValues={{ remember: true }}
             autoComplete="off"
             onSubmitCapture={submitUser}
+            form={form}
           >
             <Form.Item
               label="Username"
@@ -63,7 +81,7 @@ const RegisterComponent = ({ toggleRegister }: Props) => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your username!',
+                  message: "Please input your username!",
                   min: 5,
                 },
               ]}
@@ -76,7 +94,7 @@ const RegisterComponent = ({ toggleRegister }: Props) => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your email!',
+                  message: "Please input your email!",
                   pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 },
               ]}
@@ -90,7 +108,7 @@ const RegisterComponent = ({ toggleRegister }: Props) => {
               rules={[
                 {
                   required: true,
-                  message: 'Please input your password!',
+                  message: "Please input your password!",
                   min: 6,
                 },
               ]}
@@ -115,5 +133,4 @@ const RegisterComponent = ({ toggleRegister }: Props) => {
     </>
   );
 };
-
 export default RegisterComponent;
