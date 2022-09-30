@@ -23,52 +23,52 @@ export const axiosInterceptor = (store: Store) => {
   });
 };
 
-axios.interceptors.response.use((response) => {
-  return response;
-},
-(error: AxiosError) => {
-  const { data, status } = error.response!;
-  switch (status) {
-    case 400:
-      if (data.errors) {
-        const validationErrors: string[] = [];
-        for (const key in data.errors) {
-          if (data.errors[key]) {
-            validationErrors.push(data.errors[key]);
-          }
-        }
-        throw validationErrors.flat();
-      }
-      notification.error({
-        message: data.errorMessage,
-      });
-      break;
-    case 401:
-      notification.error({
-        message: data.errorMessage,
-      });
-      break;
-    case 403:
-      notification.error({
-        message: 'You are not allowed to do that!',
-      });
-      break;
-    case 404:
-      notification.error({
-        message: data.errorMessage,
-      });
-      break;
-    case 500:
-      notification.error({
-        message: 'Server error, try again later',
-      });
-      break;
-    default:
-      break;
-  }
-  return Promise.reject(error.response);
-},
-);
+// axios.interceptors.response.use((response) => {
+//   return response;
+// },
+// (error: AxiosError) => {
+//   const { data, status } = error.response!;
+//   switch (status) {
+//     case 400:
+//       if (data.errors) {
+//         const validationErrors: string[] = [];
+//         for (const key in data.errors) {
+//           if (data.errors[key]) {
+//             validationErrors.push(data.errors[key]);
+//           }
+//         }
+//         throw validationErrors.flat();
+//       }
+//       notification.error({
+//         message: data.errorMessage,
+//       });
+//       break;
+//     case 401:
+//       notification.error({
+//         message: data.errorMessage,
+//       });
+//       break;
+//     case 403:
+//       notification.error({
+//         message: 'You are not allowed to do that!',
+//       });
+//       break;
+//     case 404:
+//       notification.error({
+//         message: data.errorMessage,
+//       });
+//       break;
+//     case 500:
+//       notification.error({
+//         message: 'Server error, try again later',
+//       });
+//       break;
+//     default:
+//       break;
+//   }
+//   return Promise.reject(error.response);
+// },
+// );
 
 const requests = {
   get: <T>(url: string, params?: URLSearchParams) =>
