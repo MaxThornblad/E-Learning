@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace API.Controllers
 {
@@ -137,6 +138,16 @@ namespace API.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpGet("unpublishedCourses")]
+
+        public List<Course> unpublishedCourses()
+        {
+            var courses = _context.Courses.Where(x => x.Instructor == User.Identity.Name).Where(x => x.Published == false).ToList();
+
+            return courses;
+        }
+
         private async Task<Basket> ExtractBasket(string clientId)
         {
             if (string.IsNullOrEmpty(clientId))
@@ -149,7 +160,6 @@ namespace API.Controllers
                         .ThenInclude(i => i.Course)
                         .OrderBy(i => i.Id)
                         .FirstOrDefaultAsync(x => x.ClientId == clientId);
-
         }
 
     }
