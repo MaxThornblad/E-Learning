@@ -4,7 +4,6 @@ import './sass/main.scss';
 import Navigation from './components/Navigation';
 import 'antd/dist/antd.css';
 import HomePage from './pages/Homepage';
-import Login from './pages/Login';
 import DetailPage from './pages/DetailPage';
 import Categories from './components/Categories';
 import CategoryPage from './pages/CategoryPage';
@@ -21,6 +20,8 @@ import CoursePage from './pages/CoursePage';
 import InstructorPage from './pages/InstructorPage';
 import CreateCourse from './pages/CreateCourse';
 import { getCategoriesAsync } from './redux/slice/categorySlice';
+import SectionPage from './pages/SectionPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -51,13 +52,14 @@ function App() {
         <Route exact path="/course/:id" component={DescriptionPage} />
         <Route exact path="/basket" component={BasketPage} />
         <Route exact path="/category/:id" component={CategoryPage} />
-        <Route exact path="/login" component={Login} />
+        <Route exact path="/login" component={LoginPage} />
         <Route exact path="/detail" component={DetailPage} />
         <PrivateRoute exact path="/profile" component={Dashboard} />
         <PrivateRoute exact path="/learn/:course/:lecture" component={CoursePage} />
         <PrivateRoute exact path="/checkout" component={CheckoutPage} />
         <PrivateRoute exact path="/instructor" component={InstructorPage} />
         <PrivateRoute exact path="/instructor/course" component={CreateCourse} />
+        <PrivateRoute exact path="/:course/lectures" component={SectionPage} />
       </Switch>
     </>
   );
