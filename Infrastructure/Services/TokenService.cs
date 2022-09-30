@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,20 +13,21 @@ namespace Infrastructure.Services
 {
     public class TokenService
     {
-        private readonly UserManager<User> _userManager;
         private readonly IConfiguration _config;
+        private readonly UserManager<User> _userManager;
         public TokenService(UserManager<User> userManager, IConfiguration config)
         {
-            _config = config;
             _userManager = userManager;
-            
+            _config = config;
+
         }
 
         public async Task<string> GenerateToken(User user)
         {
-            var claims = new List<Claim>{
+            var claims = new List<Claim>
+            {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.Name, user.UserName),
             };
 
             var roles = await _userManager.GetRolesAsync(user);
