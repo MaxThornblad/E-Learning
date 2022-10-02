@@ -19,21 +19,21 @@ const UserMenu = () => {
 
   const menu = (
     <Menu>
-      <Menu.Item>
+      <Menu.Item key={0}>
         <Link to="/profile">Profile</Link>
-      </Menu.Item>
+      </Menu.Item >
       {user?.roles?.includes('Instructor') && (
-        <Menu.Item>
+        <Menu.Item key={1}>
           <Link to="/instructor">Instructor</Link>
         </Menu.Item>
       )}
-      <Menu.Item>
+      <Menu.Item key={2}>
         <div onClick={signout}>Logout</div>
       </Menu.Item>
     </Menu>
   );
   return (
-    <Dropdown overlay={menu} placement="bottomCenter">
+    <Dropdown overlay={menu} placement="bottom">
       <div className="dropdown">Menu</div>
     </Dropdown>
   );
