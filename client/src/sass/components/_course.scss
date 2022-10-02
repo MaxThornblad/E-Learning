@@ -28,10 +28,6 @@
     white-space: wrap;
     text-overflow: ellipsis;
     width: 100%;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 
   &__instructor {
@@ -59,7 +55,7 @@
     justify-content: space-between;
     align-items: flex-start;
 
-    @media only screen and (max-width: $bp-small) {
+    @media only screen and (min-width: $bp-small) {
       flex-direction: column;
     }
 
@@ -77,4 +73,10 @@
       font-size: 1rem;
     }
   }
+}
+
+.pagination {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
 }
