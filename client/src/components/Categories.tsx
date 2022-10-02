@@ -18,7 +18,7 @@ const Categories = () => {
       {categories &&
         categories.map((category: Category, index: number) => {
           return (
-            <Link key={index} to={`/category/${category.id}`}>
+            <Link id={`category-${category.id}`} key={index} to={`/category/${category.id}`}>
               <div className="categories__name">{category.name}</div>
             </Link>
           );
