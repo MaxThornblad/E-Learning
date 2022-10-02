@@ -36,6 +36,7 @@ const Navigation = () => {
     dispatch(setCourseParams({ search: searchText }));
   };
 
+
   return (
     <div className="nav-container">
       <div className="nav">
@@ -87,7 +88,7 @@ const Navigation = () => {
           </ul>
         </div>
         <div className="nav__right">
-          <form onSubmit={onSearch} className="nav__right__search">
+          <form onChange={onSearch} className="nav__right__search">
             <input
               type="text"
               className="nav__right__search__input"
