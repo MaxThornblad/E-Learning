@@ -8,3 +8,5 @@ ISAC: ShowCourses lägg till /
 
 Delete loginreducer in api/redux
 Delete weatherforecast
+
+Change "Course" to "Courses" when 0 in cart

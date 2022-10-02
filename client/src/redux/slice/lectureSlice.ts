@@ -24,7 +24,7 @@ Lecture | undefined,
 export const setCurrentLectureAsync = createAsyncThunk<
 void,
 {lectureId: number, courseId: string}
->("lecture/setCurentLectureAsync", async ({lectureId, courseId}, thunkAPI) => {
+>("lecture/setCurrentLectureAsync", async ({lectureId, courseId}, thunkAPI) => {
     try {
         await agent.Lectures.setCurrentLecture({lectureId, courseId});
     } catch (error: any) {
