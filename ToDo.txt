@@ -5,3 +5,6 @@ Footer
 More components
 Ta bort onödiga filer
 ISAC: ShowCourses lägg till /
+
+Delete loginreducer in api/redux
+Delete weatherforecast
