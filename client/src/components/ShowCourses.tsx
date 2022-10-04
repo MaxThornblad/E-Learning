@@ -19,26 +19,6 @@ const ShowCourses = ({ course }: Props) => {
   const { userCourses } = useAppSelector((state) => state.user);
   const {currentLecture} = useAppSelector((state) => state.lecture);
 
-  const checkWidth = (): void => {
-    if (window.innerWidth > 1024) {
-      setSpanVal(8);
-    } else if (window.innerWidth < 1024 && window.innerWidth > 768) {
-      setSpanVal(12);
-    } else {
-      setSpanVal(14);
-    }
-  };
-
-  useLayoutEffect(() => {
-    checkWidth();
-    window.addEventListener('resize', checkWidth);
-    return () => window.removeEventListener('resize', checkWidth);
-  }, []);
-
-  // useEffect(() => {
-    
-  // }, []);
-
   const showStars = (rating: number): [] => {
     const options: any = [];
     for (let i = 1; i < rating; i++) {
@@ -55,7 +35,7 @@ const ShowCourses = ({ course }: Props) => {
       <Col className="gutter-row" span={spanVal}>
         <Card
           hoverable
-          cover={<img width="100%" alt="course-cover" src={course.image} />}
+          cover={<img max-width={800} height={320} alt="course-cover" src={course.image} />}
         >
           <Link to={`/course/${course.id}`}>
             <div className="course__title">{course.title}</div>

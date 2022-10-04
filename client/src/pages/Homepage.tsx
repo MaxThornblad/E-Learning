@@ -12,6 +12,7 @@ import {
 } from '../redux/slice/courseSlice';
 import { categoriesSelector } from '../redux/slice/categorySlice';
 import { Category } from '../models/category';
+import Select, { SingleValue } from 'react-select';
 
 const sortOptions = [
   { value: 'title', label: 'Alphabetical' },
@@ -49,35 +50,29 @@ const Homepage = () => {
         <h1>What to learn Next?</h1>
         <h2>New Courses picked just for you...</h2>
       </div>
-      <Row gutter={[24, 32]}>
-        <Col span={4}>
-          <Card title="Sorting Options">
-            <Radio.Group
-              options={sortOptions}
-              value={courseParams.sort}
-              onChange={(e) =>
-                dispatch(setCourseParams({ sort: e.target.value }))
-              }
-            />
-          </Card>
-          <Card title="Choose Category">
-            <Radio.Group
-              options={getCategories()}
-              value={courseParams.category}
-              onChange={(e) => {
-                dispatch(setCourseParams({ category: e.target.value }));
-              }}
-            />
-          </Card>
-        </Col>
-        <Col span={20}>
-          <Row gutter={[24, 32]}>
+      <div className="select_options">
+          <Select className='select_options_option'
+            options={sortOptions}
+            placeholder ="Sort by..."
+            onChange={(
+              newValue: SingleValue<{ value: string; label: string }>
+            ) => dispatch(setCourseParams({ sort: newValue!.value }))}
+          />
+          <Select className='select_options_option'
+            options={getCategories()}
+            placeholder ="Category..."
+            onChange={(
+              newValue: SingleValue<{ value: string; label: string }>
+            ) => dispatch(setCourseParams({ category: newValue!.value }))}
+          />
+        </div>
+        <div className='homepage_courses'>
             {data &&
               data.map((course: Course, index: number) => {
                 return <ShowCourses key={index} course={course} />;
               })}
-          </Row>
-          <div className="pagination">
+        </div>
+        <div className="pagination">
             {pagination && (
               <Pagination
                 defaultCurrent={pagination?.pageIndex}
@@ -87,8 +82,6 @@ const Homepage = () => {
               />
             )}
           </div>
-        </Col>
-      </Row>
     </div>
   );
 };
