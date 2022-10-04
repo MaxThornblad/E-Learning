@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import { Card, Col } from 'antd';
 import { Course } from '../models/course';
@@ -21,22 +21,23 @@ const ShowCourses = ({ course }: Props) => {
 
   const checkWidth = (): void => {
     if (window.innerWidth > 1024) {
-      setSpanVal(6);
+      setSpanVal(8);
     } else if (window.innerWidth < 1024 && window.innerWidth > 768) {
-      setSpanVal(10);
+      setSpanVal(12);
     } else {
-    setSpanVal(14);
+      setSpanVal(14);
     }
   };
 
   useLayoutEffect(() => {
+    checkWidth();
     window.addEventListener('resize', checkWidth);
-    return () => window.addEventListener('resize', checkWidth);
+    return () => window.removeEventListener('resize', checkWidth);
   }, []);
 
-  useEffect(() => {
-    checkWidth();
-  }, []);
+  // useEffect(() => {
+    
+  // }, []);
 
   const showStars = (rating: number): [] => {
     const options: any = [];

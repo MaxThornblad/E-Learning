@@ -18,9 +18,11 @@ const CoursePage = ({ match }: RouteComponentProps<any>) => {
   const dispatch = useAppDispatch();
   const history = useHistory();
 
+  console.log(match)
+
   useEffect(() => {
-    if (!lecture) dispatch(getLecturesAsync({ courseId: match.params.course }));
-  }, [dispatch, match, lecture]);
+    dispatch(getLecturesAsync({ courseId: match.params.course }));
+  }, [match.params.course, dispatch]);
 
   useEffect(() => {
     if (currentLecture === 0) {
@@ -28,7 +30,7 @@ const CoursePage = ({ match }: RouteComponentProps<any>) => {
       dispatch(setCurrentVideo(lecture?.sections[0].lectures[0].url));
     }
 
-    currentLecture && history.replace(`${currentLecture}`);
+    if(currentLecture) history.replace(`${currentLecture}`);
 
     let lectureItem: LectureDto;
 
@@ -41,7 +43,7 @@ const CoursePage = ({ match }: RouteComponentProps<any>) => {
         }
       }
     }
-  }, [currentLecture, dispatch, lecture, history]);
+  }, [dispatch, lecture, history]);
 
   const selectLecture = async (id: number, url: string) => {
     history.push(`${id}`);
