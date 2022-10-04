@@ -32,4 +32,12 @@ html {
 
 body {
     font-family: $font-primary, sans-serif;
+    width: 100%;
+    min-height: 100vh;
   }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}

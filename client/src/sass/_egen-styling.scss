@@ -1,0 +1,44 @@
+.select_options {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    &_option{
+        margin: 10px;
+        width: 25%;
+        @media only screen and (max-width: $bp-medium) {
+            width: 100%
+          }
+    }
+
+}
+
+.ant-card{
+    margin: 15px!important;
+    // &-cover {
+    //     width: fit-content;
+    //     height: fit-content;
+    // }
+}
+
+.homepage_courses{
+    //flex-direction: row;
+    display: flex;
+    margin: 40px 0px;
+    width: 100%;
+    @media only screen and (max-width: $bp-small){
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
+
+.course{
+    display: flex;
+    align-items: center;
+
+    .ant-col{
+        display: flex!important;
+        justify-content: center!important;
+    }
+}
