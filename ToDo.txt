@@ -12,3 +12,5 @@ Delete weatherforecast
 Change "Course" to "Courses" when 0 in cart
 
 Delete detailpage?
+
+Mobilläge meny missing Instructor button
