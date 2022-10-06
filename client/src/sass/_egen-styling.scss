@@ -16,8 +16,10 @@
 .ant-card{
     margin: 15px!important;
     // &-cover {
-    //     width: fit-content;
-    //     height: fit-content;
+    //     img{
+    //         background-position: center !important;
+    //         background-size: contain !important;
+    //     }
     // }
 }
 
@@ -26,7 +28,7 @@
     display: flex;
     margin: 40px 0px;
     width: 100%;
-    @media only screen and (max-width: $bp-small){
+    @media only screen and (max-width: 65em){
         flex-direction: column;
         align-items: center;
     }
@@ -40,5 +42,21 @@
     .ant-col{
         display: flex!important;
         justify-content: center!important;
+    }
+}
+
+.lecture__video{
+    align-items: start;
+    margin-right: 50px;
+    iframe{
+        height: 75%;
+    }
+    @media only screen and (max-width: 800px){
+        width: 100%;
+        margin: 0 0 0 0;
+        height: 350px;
+        iframe{
+            height: 100%;
+        }
     }
 }

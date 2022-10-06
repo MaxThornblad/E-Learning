@@ -42,6 +42,8 @@ const Homepage = () => {
 
   function onChange(pageNumber: number) {
     dispatch(setPageNumber({ pageIndex: pageNumber }));
+    document.querySelectorAll(".ant-pagination-item-active").forEach(e => e.classList.remove("ant-pagination-item-active"))
+    document.querySelectorAll(`.ant-pagination li[title="${pageNumber}"]`).forEach(e => e.classList.add("ant-pagination-item-active"))
   }
 
   return (
@@ -50,6 +52,7 @@ const Homepage = () => {
         <h1>What to learn Next?</h1>
         <h2>New Courses picked just for you...</h2>
       </div>
+
       <div className="select_options">
           <Select className='select_options_option'
             options={sortOptions}
@@ -66,6 +69,16 @@ const Homepage = () => {
             ) => dispatch(setCourseParams({ category: newValue!.value }))}
           />
         </div>
+          <div className="pagination">
+            {pagination && (
+              <Pagination
+                defaultCurrent={pagination?.pageIndex}
+                total={pagination?.totalCount}
+                onChange={onChange}
+                pageSize={pagination?.pageSize}
+              />
+            )}
+          </div>
         <div className='homepage_courses'>
             {data &&
               data.map((course: Course, index: number) => {

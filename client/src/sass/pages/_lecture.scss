@@ -12,8 +12,7 @@
       display: flex;
       flex: 0 0 18%;
       flex-direction: column;
-      height: 100vh;
-      overflow-y: scroll;
+      height: 100%;
   
       @media only screen and (max-width: $bp-medium) {
         flex: 0;
@@ -49,9 +48,9 @@
           width: 100%;
           cursor: pointer;
   
-          @media only screen and (max-width: $bp-small) {
-            overflow: scroll;
-          }
+          // @media only screen and (max-width: $bp-small) {
+          //   overflow: scroll;
+          // }
   
           &__active {
             display: flex;

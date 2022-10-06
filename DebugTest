@@ -1,0 +1,79 @@
+{
+    "courseName": "Data Structures and Algorithms: Crack SDE Interviews",
+    "sections": [
+        {
+            "sectionName": "Section 1",
+            "lectures": []
+        },
+        {
+            "sectionName": "Section 2",
+            "lectures": []
+        },
+        {
+            "sectionName": "Section 3",
+            "lectures": []
+        },
+        {
+            "sectionName": "Section 4",
+            "lectures": []
+        },
+        {
+            "sectionName": "Section 5",
+            "lectures": []
+        }
+    ],
+    "currentLecture": 0
+}
+
+{
+    "courseName": "Backend with Node JS: Write your own server",
+    "sections": [
+        {
+            "sectionName": "Section 1",
+            "lectures": [
+                {
+                    "id": 16,
+                    "title": "Lecture 1",
+                    "url": "https://www.youtube.com/embed/u_FD_9FTg8w"
+                },
+                {
+                    "id": 17,
+                    "title": "Lecture 2",
+                    "url": "https://www.youtube.com/embed/0sI2Kxzk2do"
+                },
+                {
+                    "id": 18,
+                    "title": "Lecture 3",
+                    "url": "https://www.youtube.com/embed/TmNpIFzs6Pc"
+                },
+                {
+                    "id": 19,
+                    "title": "Lecture 4",
+                    "url": "https://www.youtube.com/embed/fjTN6yHoWYI"
+                },
+                {
+                    "id": 20,
+                    "title": "Lecture 5",
+                    "url": "https://www.youtube.com/embed/Dv8RMM09F4U"
+                }
+            ]
+        },
+        {
+            "sectionName": "Section 2",
+            "lectures": []
+        },
+        {
+            "sectionName": "Section 3",
+            "lectures": []
+        },
+        {
+            "sectionName": "Section 4",
+            "lectures": []
+        },
+        {
+            "sectionName": "Section 5",
+            "lectures": []
+        }
+    ],
+    "currentLecture": 16
+}
